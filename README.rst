@@ -1,8 +1,9 @@
 rstb
 ====
 
-:author: Eduardo A. Bustamante López (dualbus)
-
+:author:    Eduardo A. Bustamante López (dualbus)
+:contact:   dualbus@gmail.com
+:license:   http://sam.zoy.org/wtfpl/
 
 NAME
 ----

@@ -25,21 +25,21 @@ shopt -s nullglob;
 warn()  { printf '%s: %s\n' "${BASH_SOURCE##*/}" "$1" >&2; }
 die()   { local st="$?"; warn "$1"; exit "$st"; }
 
-# Ins^H^H^HSane defaults
-# ----------------------
+# Sane defaults
+# -------------
 
-# These should/must be overriden in the rstbrc file.
+# These should be overriden in the rstbrc file.
 editor()    { "${EDITOR:-vi}" "$1"; }
-viewer()    { w3m -T text/html "$1"; }
-builder()   { rst2html "$@"; }
+builder()   { rst2html "$1"; }
+viewer()    { xdg-open "$1"; }
 publisher() {
     local file title;
-    local -a args;
     file=$1;
     title=$2;
 
-    args=( -e "set content_type=text/html" "$email_to" -s "$title" )
-    EMAIL="$email_from" mutt "${args[@]}" < "$file"
+    env MAILX_HEAD='Content-Type: text/html' \ 
+        MAILRC=/dev/null \
+            mailx -n -s "$title" "$mail_to" < "$file"
 }
 
 
@@ -190,6 +190,7 @@ declare -a dependencies=(
     'touch'
     'mkdir'
     'rmdir'
+    'mailx'
 )
 for dependency in "${dependencies[@]}"; do
     if ! type "$dependency" >/dev/null 2>&1; then
@@ -213,5 +214,5 @@ done
 if [[ $command_exists ]]; then
     rstb_"$command" "$@";
 else
-    die 'Foo';
+    die 'please provide a valid command';
 fi

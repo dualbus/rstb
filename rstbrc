@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# rstbrc
+# ======
+
+# Base directory
+# --------------
+#posts_directory=~/blog
+#posts_directory=~/doc/blog
+
+# editor
+# ------
+#export EDITOR=vim
+#export EDITOR=nano
+#export EDITOR=emacs
+#export EDITOR=ed
+#export EDITOR=gedit
+#editor() { vim -y "$1"; }
+
+# builder
+# -------
+#builder()   { rst2html "$1"; }
+#builder()   { rst2html -l es "$1"; }
+
+# viewer
+# ------
+#viewer() { w3m "$1"; }
+#viewer() { chromium "$1"   </dev/null >&0 2>&0; }
+#viewer() { firefox "$1"    </dev/null >&0 2>&0; }
+
+# publisher
+# ---------
+
+# To setup mail in these blogging engines.
+# - wordpress: http://codex.wordpress.org/Post_to_your_blog_using_email
+# - blogger: http://support.google.com/blogger/bin/answer.py?hl=en&answer=41452
+
+#mail_from='dualbus+blog@gmail.com'
+#mail_to='dualbus.XXX@blogger.com'
+
+## Mail from localhost (default).
+#publisher() {
+#    local file title;
+#    file=$1;
+#    title=$2;
+#
+#    env MAILX_HEAD='Content-Type: text/html' \ 
+#        MAILRC=/dev/null \
+#            mailx -n -s "$title" "$mail_to" < "$file"
+#}
+
+## Mail from localhost (default).
+#publisher() {
+#    local file title;
+#    file=$1;
+#    title=$2;
+#
+#    env MAILX_HEAD='Content-Type: text/html' \ 
+#        MAILRC=/dev/null \
+#            mailx -n -s "$title" "$mail_to" < "$file"
+#}
+
+## Via Mutt.
+#publisher() {
+#    local file title;
+#    local -a args;
+#    file=$1;
+#    title=$2;
+#
+#    args=( -e "set content_type=text/html" "$mail_to" -s "$title" )
+#    EMAIL="$mail_from" mutt "${args[@]}" < "$file"
+#}
+
+## Via GoogleCL <http://code.google.com/p/googlecl/>.
+#publisher() {
+#    local file title;
+#    file=$1;
+#    title=$2;
+#
+#    google blogger post --title "$title" "$file"
+#}

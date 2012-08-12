@@ -1,6 +1,9 @@
 rstb
 ====
 
+:author: Eduardo A. Bustamante López (dualbus)
+
+
 NAME
 ----
 
@@ -92,7 +95,9 @@ By default, rstb will try to read from these locations, in that specific order.
 - ``~/.rstbrc``
 
 Yep. Personal settings override the global settings. I will call the
-configuration file(s) from now on as ``rstbrc``.
+configuration file(s) from now on as ``rstbrc``. By the way, I'm bundling a
+sample ``rstbrc`` with some variations on the defaults. It should be
+self-documenting (I hope).
 
 ``rstbrc`` is sourced as a bash script. This means:
 
@@ -184,7 +189,7 @@ You might want to edit an already created post, so that's just:
 
     rstb edit <file>
 
-where <file> is the whole path to the file created.
+where ``<file>`` is the path to the file created.
 
 .. note::
 
@@ -200,7 +205,7 @@ open the file in ``gedit``:
 .. code:: bash
 
    # We don't want gedit to mess with our terminal.
-   editor() { gedit "$1"    </dev/null >&0 2>&1; }
+   editor() { gedit "$1" </dev/null >&0 2>&0; }
 
 Or just set the EDITOR environment variable, since rstb will try to use your
 default editor (or fall-back to vi). If you're having trouble setting that
@@ -219,7 +224,7 @@ To build an existing post:
 
     rstb build <file>
 
-<file> is the path to the file in the intermediate format. Again, bash
+``<file>`` is the path to the file in the intermediate format. Again, bash
 completion is suggested to reduce the amount of tedious typing.
 
 You can override the ``builder`` function to provide a different compiler. For
@@ -235,9 +240,6 @@ you could provide
 
    builder(){ rst2pdf "$1"; }
 
-Or whatever tool you desire. You can even handle Markdown or other intermediate
-formats.
-
 There is one variable to control the extension of the built file, ``bext``
 (from build extension). You can set ``bext=pdf``, for example, to use it with
 the ``rst2pdf`` builder.
@@ -245,20 +247,85 @@ the ``rst2pdf`` builder.
 View
 ++++
 
+Now you've edited your post, and built it. How does it look? Does it look Ok?
+Well, that's what the view command is about.
+
+    rstb view <file>
+
+Will try to preview ``<file>``. Use the path to the source file, not the built
+file; let's try to keep the interface simple. Make sure it's already built too!
+
+For example, to use Chromium as the viewer:
+
 .. code:: bash
 
-   viewer() { firefox "$1"  </dev/null >&0 2>&1; }
+   viewer() { firefox "$1" </dev/null >&0 2>&0; }
+
+.. note::
+
+   Arch Linux bundles Chromium as ``chromium`` (extra/chromium). If I recall
+   correctly, some bundle it as ``chromium-browser``. Make sure you confirm the
+   name of the executable.
+
+By default it calls ``xdg-open`` on the file. But that fails miserably if you
+don't have it well setup (like me :( ). And since I'm lazy, I prefer to specify
+it in ``rstbrc`` than figure out how to reconfigure XDG.
+
+::
+
+    $ xdg-settings get default-web-browser
+    xdg-settings: unknown desktop environment
+
+To be honest, I'm not sure if it's my fault or XDG's. I blame XDG though. It
+tries to open Internet Explorer via Wine, or something like that. Bah.
 
 Publish
 +++++++
+
+Everything until now has been pure happiness. But now it's time to publish your
+note. Things start to get ugly. I use blogger, so I'll talk about it. Blogger
+has a mail interface. That's nice. The problem is that it doesn't allow me to
+edit already posted notes via email. Bad.
+
+I had to setup blogger to provide me with a magical address:
+
+- http://support.google.com/blogger/bin/answer.py?hl=en&answer=41452
+
+After they provided me with the address, I just set it up as a variable in
+``rstbrc``:
+
+.. code:: bash
+
+   mail_to='dualbus.SECRET@blogger.com'
+
+Wordpress seems to have that kind of support too:
+
+- http://codex.wordpress.org/Post_to_your_blog_using_email
+
+There's a method to post to blogger via Google's API, I put a sample command in
+the ``rstbrc`` bundled.
 
 PROBLEMS
 --------
 
 - Alpha. 
+- See TODO_ for desirable features that are not implemented.
+- Completion is case-sensitive. Bad.
+
+.. _TODO: https://github.com/dualbus/rstb/blob/master/TODO.rst
 
 SEE ALSO
 --------
 
-- http://docutils.sourceforge.net/ 
-- https://github.com/dualbus/bashcomp/ 
+- rstb bash completion: https://github.com/dualbus/bashcomp/ 
+
+- docutils & reStructuredText
+
+  + http://docutils.sourceforge.net/ 
+  + http://docutils.sourceforge.net/rst.html
+  + http://docutils.sourceforge.net/docs/ref/rst/introduction.html
+  + http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
+
+- riv.vim: https://github.com/Rykka/riv.vim
+
+- mailx: http://heirloom.sourceforge.net/mailx.html

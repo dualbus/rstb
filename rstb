@@ -58,6 +58,7 @@ rstb_checkfile()    {
     done
 }
 
+# FIXME
 rstb_title()        { rstb_checkfile "$1" && awk 'NR==1' "$1"; }
 
 rstb_new()          {
@@ -79,7 +80,7 @@ rstb_new()          {
 
     # Increase the counter.
     posts=("$base_directory"/*);
-    last_post=${posts[@]:(-1)};
+    last_post=${posts[@]: -1};
     last_post=${last_post##*/}
     post=$((last_post+1))
 

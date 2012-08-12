@@ -74,7 +74,7 @@ Installation
 
 - See INSTALL_ (INSTALL.rst)
 
-.. _INSTALL: https://github.com/dualbus/rstb/master/INSTALL.rst
+.. _INSTALL: https://github.com/dualbus/rstb/blob/master/INSTALL.rst
 
 Configuration
 +++++++++++++

@@ -26,7 +26,7 @@ In a nutshell
 
 I want to have a blog. But I don't like:
 
-- To use a crappy HTML embedded editor. I prefer to use my beloved vim.
+- To use a crappy "rich-text editor". I prefer to use my beloved vim.
 - To do raw HTML in vim. I want to write in a simple and concise
   format, and let another tool do the job of producing the HTML.
 - That my blog depends completely of an external provider. If XYZ provider

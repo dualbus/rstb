@@ -305,12 +305,20 @@ Wordpress seems to have that kind of support too:
 There's a method to post to blogger via Google's API, I put a sample command in
 the ``rstbrc`` bundled.
 
+After all these boring steps:
+
+    rstb publish <file>
+
+Again, ``<file>`` is the path of the file. And voilá. Your post should now be
+public.
+
 PROBLEMS
 --------
 
 - Alpha. 
 - See TODO_ for desirable features that are not implemented.
 - Completion is case-sensitive. Bad.
+- ``rstb cmd`` isn't documented.
 
 .. _TODO: https://github.com/dualbus/rstb/blob/master/TODO.rst
 
